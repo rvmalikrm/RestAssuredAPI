@@ -10,7 +10,6 @@ public class GetBookingId extends CreateBookingIDAPI {
                 .given()
                 .when().log().all().get("/booking/"+bId)
                 .then().log().all().extract().response();
-        System.out.println(response2);
-        System.out.println(bId);
+        System.out.println("---------------------bid------------"+bId);
     }
 }

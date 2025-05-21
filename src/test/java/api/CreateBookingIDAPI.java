@@ -29,10 +29,10 @@ public class CreateBookingIDAPI {
                 .body(payload)
                 .when()
                 .log().all().post("/booking")
-                .then()
+                .then().log().all()
                 .statusCode(200)
                 .extract().response();
-        response.prettyPrint();
+        //response.prettyPrint();
         Assert.assertEquals(response.getStatusCode(),200);
         // Step 2: Extract the booking ID from the response
         bId= response.jsonPath().getInt("bookingid");

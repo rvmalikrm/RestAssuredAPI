@@ -3,6 +3,7 @@ package api;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.codehaus.groovy.transform.SourceURIASTTransformation;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -24,10 +25,11 @@ public class PostApiTest {
                     .contentType(ContentType.JSON)
                     .body(payload)
                 .when()
-                .log().all().post("/auth");
+                .log().all().post("/auth")
+                .then().log().all().extract().response();
         // Print Response
+        System.out.println("====================Here is the response of API======================");
         response.prettyPrint();
-
         // Validation
         Assert.assertEquals(response.getStatusCode(), 200);
     }
