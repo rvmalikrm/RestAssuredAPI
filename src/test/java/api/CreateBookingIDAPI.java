@@ -7,11 +7,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CreateBookingIDAPI {
+    public  static int bId;
     @Test
-
-    public void testCreateBookingID(){
+    public static void testCreateBookingID(){
         RestAssured.baseURI= "https://restful-booker.herokuapp.com";
-
         String payload= """
                 {
                     "firstname" : "Pooja",
@@ -29,9 +28,13 @@ public class CreateBookingIDAPI {
                 .contentType(ContentType.JSON)
                 .body(payload)
                 .when()
-                .log().all().post("/booking");
+                .log().all().post("/booking")
+                .then()
+                .statusCode(200)
+                .extract().response();
         response.prettyPrint();
         Assert.assertEquals(response.getStatusCode(),200);
-
+        // Step 2: Extract the booking ID from the response
+        bId= response.jsonPath().getInt("bookingid");
     }
 }
