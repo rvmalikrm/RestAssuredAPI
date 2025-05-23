@@ -1,14 +1,20 @@
 package api;
 
+import io.qameta.allure.*;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+@Epic("API Tests")
+@Feature("Login")
 
 public class CreateBookingTest_using_POJO {
-    @Test
+    @Test(description = "Create a booking using POJO and validate response")
+
+    @Description("Test Description: Verify that a user can successfully create a booking with valid payload using POJO classes.")
+
     public void createbookingusingPOJO(){
         RestAssured.baseURI= "https://restful-booker.herokuapp.com/";
         // Create BookingDates object
@@ -35,10 +41,7 @@ public class CreateBookingTest_using_POJO {
                 .then().log().all()
                 .statusCode(200)
                 .extract().response();
-
         // Print response
         response.prettyPrint();
-
-
     }
 }
